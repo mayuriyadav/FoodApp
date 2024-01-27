@@ -43,8 +43,9 @@ const UserProfile = () => {
     };
     getuserdata();
   }, [userloggeduid]);
+  
   // console.log(userlogged);
-  console.log(userdata);
+  // console.log(userdata);
   return (
     <View style={styles.containerout}>
       <TouchableOpacity

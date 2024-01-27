@@ -1,8 +1,15 @@
-import { StyleSheet, Text, View ,ScrollView,TouchableOpacity,Image, TextInput} from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  TextInput,
+} from "react-native";
 import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import {
-  btn1,
   btn2,
   colors,
   hr80,
@@ -25,35 +32,33 @@ const Productpage = ({ navigation, route }) => {
   const [quantity, setQuantity] = useState("1");
   const [addonquantity, setaddonquantity] = useState("0");
 
-
   const addTocart = () => {
     // console.log("add to cart");
     const docRef = firebase
       .firestore()
       .collection("UserCart")
       .doc(firebase.auth().currentUser.uid);
-    
-      const data1 = {
-        data,
-        addonquantity: addonquantity,
-        Foodquantity: quantity,
-      } 
-      // console.log("data",data1);
-      docRef.get().then((doc) =>{
-        if(doc.exists){
-        docRef.update({
-  cart: firebase.firestore.FieldValue.arrayUnion(data1),
-});
-  alert("Added to Cart");
-// console.log("Updated");
-        }else{
-          docRef.set({
-            cart :[data],
-          })
-          alert('Added to Cart')
-        }
-      })
 
+    const data1 = {
+      data,
+      addonquantity: addonquantity,
+      Foodquantity: quantity,
+    };
+    // console.log("data",data1);
+    docRef.get().then((doc) => {
+      if (doc.exists) {
+        docRef.update({
+          cart: firebase.firestore.FieldValue.arrayUnion(data1),
+        });
+        alert("Added to Cart");
+        // console.log("Updated");
+      } else {
+        docRef.set({
+          cart: [data],
+        });
+        alert("Added to Cart");
+      }
+    });
   };
 
   const increaseQuantity = () => {
@@ -65,14 +70,14 @@ const Productpage = ({ navigation, route }) => {
     }
   };
 
-   const increaseAddonQuantity = () => {
-     setaddonquantity((parseInt(addonquantity) + 1).toString());
-   };
-   const decreaseAddonQuantity = () => {
-     if (parseInt(addonquantity) > 0) {
-       setaddonquantity((parseInt(addonquantity) - 1).toString());
-     }
-   };
+  const increaseAddonQuantity = () => {
+    setaddonquantity((parseInt(addonquantity) + 1).toString());
+  };
+  const decreaseAddonQuantity = () => {
+    if (parseInt(addonquantity) > 0) {
+      setaddonquantity((parseInt(addonquantity) - 1).toString());
+    }
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -209,9 +214,9 @@ const Productpage = ({ navigation, route }) => {
       </View>
     </ScrollView>
   );
-}; 
+};
 
-export default Productpage
+export default Productpage;
 
 const styles = StyleSheet.create({
   container: {

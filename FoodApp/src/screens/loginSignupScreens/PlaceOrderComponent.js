@@ -14,8 +14,9 @@ const PlaceOrderComponent = ({navigation,route}) => {
 
   useEffect(() => {
     setOrderdata(JSON.parse(cartdata));
-   
+  
   }, [cartdata]);
+
 // console.log(typeof (orderdata));
 
 useEffect(() => {
@@ -99,40 +100,55 @@ useEffect(() => {
       };
       getuserdata();
     }, [userloggeduid]);
+
   // console.log(",,,,,,,,,",userdata)
   // console.log(",,,,,,,,,", userloggeduid);
 
 
-  const placenow = () => {
-    const docRef = firebase.firestore().collection("UserOrders").doc();
+//place order...
 
-    const orderId = docRef.id || "defaultOrderId";
+// const placenow =()=>{
+//   const docRef= firebase.firestore().collection("UserOrders").doc(new Date().Date().getTime().toString());
+  
+//   docRef.set({
+//     orderid: docRef.id,
+//     orderdata: orderdata.cart,
+//     orderstatus: 'pending',
+//     ordercost: totalCost,
+//     orderdate: firebase.firestore.FieldValue.serverTimestamp(),
+//     orderaddress: userdata.address,
+//     orderphone: userdata.phone,
+//     ordername: userdata.name,
+//     orderuseruid: userloggeduid,
+//     orderpayment: 'online',
+//     paymenttotal: totalCost,
+//   });
+//   alert("Order Placed Successfully");
+//   console.log("Pay")
+// }
+const placenow = () => {
+  const docRef = firebase
+    .firestore()
+    .collection("UserOrders")
+    .doc(new Date().getTime().toString());
 
-    docRef
-      .set({
-        orderid: docRef.id, // Use docRef.id instead of docRef.uid
-        orderdata: orderdata.cart,
-        orderstatus: "pending",
-        ordercost: totalCost,
-        orderdate: firebase.firestore.FieldValue.serverTimestamp(),
-        orderaddress: userdata.address,
-        orderphone: userdata.phone,
-        ordername: userdata.name,
-        orderuseruid: userloggeduid, // Assuming this is a plain JavaScript object
-        orderpayment: "online",
-        paymenttotal: totalCost,
-      })
-      .then(() => {
-        alert("Order Placed Successfully");
-        // Uncomment and adjust navigation as needed
-        // navigation.navigate('home');
-        // navigation.navigate('trackorders');
-      })
-      .catch((error) => {
-        console.error("Error placing order:", error);
-        // Handle the error, show an alert, or perform other actions
-      });
-  };
+  docRef.set({
+    orderid: docRef.id,
+    orderdata: orderdata.cart,
+    orderstatus: "pending",
+    ordercost: totalCost,
+    orderdate: firebase.firestore.FieldValue.serverTimestamp(),
+    orderaddress: userdata.address,
+    orderphone: userdata.phone,
+    ordername: userdata.name,
+    orderuseruid:userloggeduid.id || userloggeduid.uid || userloggeduid.toString(),
+    orderpayment: "online",
+    paymenttotal: totalCost,
+  });
+
+  alert("Order Placed Successfully");
+  console.log("Pay");
+};
 
 
 

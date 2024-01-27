@@ -4,6 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../globals/style";
 import { FontAwesome5 } from "@expo/vector-icons";
+
 const ButtomNav = ({ navigation }) => {
   return (
     <View style={styles.container}>
